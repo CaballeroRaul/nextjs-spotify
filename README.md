@@ -94,7 +94,7 @@ Aplicación web que genera playlists personalizadas de Spotify basándose en las
 4. Completa el formulario:
    - **App name**: Spotify Taste Mixer
    - **App description**: Generador de playlists personalizadas
-   - **Redirect URI**: `http://localhost:3000/auth/callback`
+   - **Redirect URI**: `http://127.0.0.1:3000/auth/callback`
    - **API/SDKs**: Web API
 5. Guarda tu **Client ID** y **Client Secret**
 
@@ -120,7 +120,7 @@ Crea un archivo `.env.local` en la raíz del proyecto:
 ```bash
 SPOTIFY_CLIENT_ID=tu_client_id_aqui
 SPOTIFY_CLIENT_SECRET=tu_client_secret_aqui
-NEXT_PUBLIC_REDIRECT_URI=http://localhost:3000/auth/callback
+NEXT_PUBLIC_REDIRECT_URI=http://127.0.0.1:3000/auth/callback
 ```
 
 ⚠️ **IMPORTANTE**: 
