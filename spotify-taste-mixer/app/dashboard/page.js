@@ -53,13 +53,13 @@ export default function Dashboard() {
 
     let allTracks = [];
 
-    // 1. PRIORIDAD: Tracks seleccionados directamente
+    // PRIORIDAD: Tracks seleccionados directamente
     if (preferences.tracks.length > 0) {
       console.log(`✅ Añadiendo ${preferences.tracks.length} tracks seleccionados`);
       allTracks.push(...preferences.tracks);
     }
 
-    // 2. PRIORIDAD: Artistas seleccionados (top tracks)
+    // PRIORIDAD: Artistas seleccionados (top tracks)
     if (preferences.artists.length > 0) {
       console.log(`🎤 Obteniendo tracks de ${preferences.artists.length} artistas...`);
       for (const artist of preferences.artists) {
@@ -82,7 +82,7 @@ export default function Dashboard() {
       }
     }
 
-        // 3. Buscar por géneros
+    // Buscar por géneros
     if (preferences.genres.length > 0 && allTracks.length < 30) {
       console.log(`🎸 Buscando por ${preferences.genres.length} géneros...`);
 
@@ -109,30 +109,10 @@ export default function Dashboard() {
       }
     }
 
-    // 4. Si aún faltan tracks, buscar populares
-    /*if (allTracks.length < 15) {
-      console.log('⚠️ Completando con tracks populares...');
-      try {
-        const response = await fetch(
-          `https://api.spotify.com/v1/search?type=track&q=top%20hits&market=ES&limit=20`,
-          {
-            headers: { 'Authorization': `Bearer ${token}` }
-          }
-        );
-        
-        if (response.ok) {
-          const data = await response.json();
-          allTracks.push(...data.tracks.items);
-        }
-      } catch (error) {
-        console.error('Error obteniendo tracks populares:', error);
-      }
-    }*/
-
     console.log(`📊 Total de tracks obtenidos: ${allTracks.length}`);
 
-    // 5. Filtrar y formatear
-    /*let filteredTracks = allTracks
+    // Filtrar
+    let filteredTracks = allTracks
       .filter(track => track && track.id && track.album && track.artists)
       .map(track => ({
         id: track.id,
@@ -150,9 +130,9 @@ export default function Dashboard() {
         index === self.findIndex(t => t.id === track.id) // Eliminar duplicados
       );
 
-    console.log(`📊 Tracks únicos: ${filteredTracks.length}`);*/
+    console.log(`📊 Tracks únicos: ${filteredTracks.length}`);
 
-    // 6. FILTRAR POR DÉCADA
+    // FILTRAR POR DÉCADA
     if (preferences.decades.length > 0) {
       const originalLength = filteredTracks.length;
       
@@ -172,7 +152,7 @@ export default function Dashboard() {
       console.log(`Décadas seleccionadas: ${preferences.decades.join(', ')}`);
     }
 
-    // 7. FILTRAR POR POPULARIDAD
+    // FILTRAR POR POPULARIDAD
     const minPop = Math.max(0, preferences.popularity - 25);
     const maxPop = Math.min(100, preferences.popularity + 25);
     
@@ -183,7 +163,7 @@ export default function Dashboard() {
     
     console.log(`🔥 Filtrado por popularidad (${minPop}-${maxPop}): ${beforePop} → ${filteredTracks.length}`);
 
-    // 8. Si quedaron muy pocos, relajar filtros
+    // Si quedaron muy pocos, relajar filtros
     if (filteredTracks.length < 10) {
       console.log('⚠️ Muy pocos resultados, relajando filtros...');
       
@@ -207,7 +187,7 @@ export default function Dashboard() {
         );
     }
 
-    // 9. Ordenar por popularidad (si aplica) y limitar a 20
+    // Ordenar por popularidad (si aplica) y limitar a 20
     filteredTracks.sort((a, b) => {
       // Priorizar tracks que coincidan mejor con la popularidad deseada
       const diffA = Math.abs(a.popularity - preferences.popularity);
