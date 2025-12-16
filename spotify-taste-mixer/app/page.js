@@ -18,11 +18,7 @@ export default function Home() {
     window.location.href = getSpotifyAuthUrl();
   };
 
-  return (
-      <>
-        🎵 Spotify Taste Mixer
-      </>  
-  );
+  
+  return <button onClick={handleLogin}>Login</button>
 }
-
 

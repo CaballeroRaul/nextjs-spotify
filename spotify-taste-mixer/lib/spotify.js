@@ -1,3 +1,5 @@
+import { getAccessToken } from '@/lib/auth';
+
 export async function generatePlaylist(preferences) {
   const { artists, genres, decades, popularity } = preferences;
   const token = getAccessToken();
@@ -51,5 +53,9 @@ export async function generatePlaylist(preferences) {
     new Map(allTracks.map(track => [track.id, track])).values()
   ).slice(0, 30);
 
-  return uniqueTracks;
+  return {
+    tracks: uniqueTracks,
+    total: uniqueTracks.length,
+    generatedAt: new Date().toISOString()
+  };
 }
